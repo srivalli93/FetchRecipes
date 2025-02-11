@@ -76,8 +76,9 @@ struct RecipeListView: View {
                 Text(cuisine)
                     .padding()
                     .fontWeight(isSelected ? .bold : .regular)
-                    .background(isSelected ? Color.gray.opacity(0.2) : .clear)
-                    .clipShape(RoundedRectangle(cornerRadius: 8))
+                    .background(isSelected ? Color.accentColor.opacity(0.2) : .clear)
+                    .clipShape(RoundedRectangle(cornerRadius: 20))
+                    .overlay(RoundedRectangle(cornerRadius: 20).stroke(isSelected ? Color.accentColor : Color.gray, lineWidth: 1.5))
             }
             .buttonStyle(PlainButtonStyle())
         }
