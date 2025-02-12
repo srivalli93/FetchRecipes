@@ -15,7 +15,6 @@ struct RecipeListView: View {
     
     var body: some View {
         NavigationView {
-            
             ZStack {
                 LinearGradient(gradient: Gradient(colors: [.white, .yellow, .orange]), startPoint: .topLeading, endPoint: .bottomTrailing)
                     .edgesIgnoringSafeArea(.all)
@@ -57,6 +56,7 @@ struct RecipeListView: View {
                         .padding(.vertical, 8)
                         .transition(.slide)
                     }
+                    .listStyle(PlainListStyle())
                     .animation(.easeIn, value: fetchService.recipes)
                     .navigationTitle("Recipes")
                     .searchable(text: $searchText)
