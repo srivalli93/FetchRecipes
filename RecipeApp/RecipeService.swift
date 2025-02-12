@@ -12,6 +12,7 @@ class RecipeService : ObservableObject {
     @Published var recipes: [Recipe] = []
     @Published var selectedRecipes: [Recipe] = []
     @Published var selectedCuisine: String = "All"
+    @Published var searchText: String = ""
     @Published var cuisines: [String] = ["All"]
     
     //this updates the UI data. Hence we are running it on MainActor to ensure the updates happen on main thread
@@ -46,6 +47,26 @@ class RecipeService : ObservableObject {
             selectedRecipes = recipes
         } else {
             selectedRecipes = recipes.filter { $0.cuisine == cuisine }
+        }
+    }
+    
+    func updatedSelectedCuisine(_ cuisine: String) {
+        selectedCuisine = cuisine
+        filterRecipes(by: cuisine)
+    }
+    
+    func updateSearchText(_ text: String) {
+        searchText = text
+        filterRecipesBySearchText()
+    }
+    
+    func filterRecipesBySearchText() {
+        if searchText.isEmpty {
+            filterRecipes(by: selectedCuisine)
+        } else {
+            selectedRecipes = recipes.filter {
+                $0.name.lowercased().contains(searchText.lowercased())
+            }
         }
     }
 }

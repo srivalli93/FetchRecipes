@@ -23,19 +23,15 @@ struct RecipeListView: View {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20.0) {
                             ForEach(fetchService.cuisines, id: \.self) { cuisine in
-                                CuisineButton(cuisine: cuisine, isSelected: cuisine == selectedCuisine) {
-                                    selectedCuisine = cuisine
+                                CuisineButton(cuisine: cuisine, isSelected: cuisine == fetchService.selectedCuisine) {
+                                    fetchService.updatedSelectedCuisine(cuisine)
                                 }
                             }
                         }
                         .padding()
                     }
                     
-                    let filteredCuisineRecipes = selectedCuisine == "All" ? fetchService.recipes : fetchService.recipes.filter { $0.cuisine == selectedCuisine }
-                    
-                    
-                    List(filteredCuisineRecipes, id: \.uuid) { recipe in
-                        
+                    List(fetchService.selectedRecipes, id: \.uuid) { recipe in
                         HStack {
                             AsyncImageView(url: recipe.photo_url_small ?? "")
                                 .frame(width: 100, height: 100)
