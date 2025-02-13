@@ -48,7 +48,7 @@ struct RecipeListView: View {
                 }
             }
             .task {
-                await fetchService.fetchRecipes(URLManager.shared.emptyRecipeURL)
+                await fetchService.fetchRecipes(URLManager.shared.recipeURL)
                 isLoading = false
             }
         }
