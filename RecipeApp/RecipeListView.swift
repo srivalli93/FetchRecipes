@@ -65,7 +65,7 @@ struct CuisineButton: View {
         Button(action: action) {
             Text(cuisine)
                 .padding()
-                .fontWeight(isSelected ? .bold : .regular)
+                .fontWeight(isSelected ? .semibold : .regular)
                 .background(isSelected ? Color.orange.opacity(0.2) : .clear)
                 .clipShape(RoundedRectangle(cornerRadius: 20))
                 .overlay(RoundedRectangle(cornerRadius: 20).stroke(isSelected ? Color.orange : Color.clear, lineWidth: 1.5))

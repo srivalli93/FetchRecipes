@@ -12,6 +12,7 @@ class RecipeService : ObservableObject {
     @Published var recipes: [Recipe] = []
     @Published var selectedRecipes: [Recipe] = []
     @Published var selectedCuisine: String = "All"
+    @Published var searchText: String = ""
     @Published var cuisines: [String] = ["All"]
     
     //this updates the UI data. Hence we are running it on MainActor to ensure the updates happen on main thread
