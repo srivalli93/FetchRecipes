@@ -32,3 +32,5 @@ I chose to not implement the search feature, focusing on MVP. This helped me wit
 
 ### Weakest Part of the Project: What do you think is the weakest part of your project?
 Considering the data doesn't change much often, providing an offline functionality would be do-able with a well-thought out cache implementation from the start of the project. Not having that feature might be the weakest part of the project.
+
+There is also no alert prompt to inform the user if a recipe doesn't have a source URL which I think is a weak part of the project, because that leaves user clueless on why the redirect did not happen
