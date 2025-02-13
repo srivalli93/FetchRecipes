@@ -12,13 +12,12 @@ class RecipeService : ObservableObject {
     @Published var recipes: [Recipe] = []
     @Published var selectedRecipes: [Recipe] = []
     @Published var selectedCuisine: String = "All"
-    @Published var searchText: String = ""
     @Published var cuisines: [String] = ["All"]
     
     //this updates the UI data. Hence we are running it on MainActor to ensure the updates happen on main thread
-    func fetchRecipes() async {
+    func fetchRecipes(_ url: String) async {
         
-        guard let url = URL(string: "https://d3jbb8n5wk0qxi.cloudfront.net/recipes.json") else {
+        guard let url = URL(string: url) else {
             return
         }
         

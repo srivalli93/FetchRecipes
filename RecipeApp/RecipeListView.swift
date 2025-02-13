@@ -10,14 +10,24 @@ import SwiftUI
 struct RecipeListView: View {
     
     @StateObject private var fetchService = RecipeService()
+    @State private var isLoading = true
     
     var body: some View {
         NavigationView {
-            ZStack {
-                LinearGradient(gradient: Gradient(colors: [.white, .yellow, .orange]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                    .edgesIgnoringSafeArea(.all)
-                
-                VStack {
+            VStack {
+                // takes care of loading state
+                if isLoading {
+                    ProgressView("Loading your recipes ...")
+                        .progressViewStyle(CircularProgressViewStyle())
+                        .padding()
+                } else if fetchService.selectedRecipes.isEmpty {
+                    EmptyStateView {
+                        Task {
+                            await fetchService.fetchRecipes(URLManager.shared.recipeURL)
+                        }
+                    }
+                    
+                } else {
                     ScrollView(.horizontal, showsIndicators: false) {
                         HStack(spacing: 20.0) {
                             ForEach(fetchService.cuisines, id: \.self) { cuisine in
@@ -35,11 +45,11 @@ struct RecipeListView: View {
                     .listStyle(PlainListStyle())
                     .animation(.easeIn, value: fetchService.recipes)
                     .navigationTitle("Recipes")
-                    .searchable(text: $fetchService.searchText)
-                    .task {
-                        await fetchService.fetchRecipes()
-                    }
                 }
+            }
+            .task {
+                await fetchService.fetchRecipes(URLManager.shared.emptyRecipeURL)
+                isLoading = false
             }
         }
     }
@@ -88,6 +98,42 @@ struct RecipeRow: View {
         }
         .padding(.vertical, 8)
         .transition(.slide)
+    }
+}
+
+struct EmptyStateView: View {
+    var retryAction: (() -> Void)?
+    
+    var body: some View {
+        VStack {
+            Image(systemName: "folder")
+                .resizable()
+                .scaledToFit()
+                .frame(width: 100, height: 100)
+            
+            Text("No recipes found")
+                .fontWeight(.semibold)
+                .lineLimit(1)
+                .minimumScaleFactor(0.8)
+            
+            if let retryAction = retryAction {
+                Button(action: retryAction) {
+                    Text("Retry")
+                        .font(.headline)
+                        .foregroundColor(.blue)
+                        .padding()
+                        .frame(maxWidth: 200)
+                        .background(Color.secondary.opacity(0.3))
+                        .cornerRadius(10)
+                }
+                .padding()
+            }
+            
+        }
+        .frame(maxWidth: .infinity, maxHeight: .infinity)
+        .background(Color.secondary.opacity(0.2))
+        .cornerRadius(10)
+        .padding()
     }
 }
 
