@@ -95,9 +95,19 @@ struct RecipeRow: View {
                     .font(.subheadline)
                     .foregroundColor(.secondary)
             }
+            
+            Spacer()
+            Image(systemName: "chevron.right")
+                .foregroundColor(.secondary)
+                .padding()
         }
         .padding(.vertical, 8)
         .transition(.slide)
+        .onTapGesture {
+            if let urlString = recipe.source_url, let url = URL(string: urlString) {
+                UIApplication.shared.open(url)
+            }
+        }
     }
 }
 
