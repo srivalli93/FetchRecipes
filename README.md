@@ -10,11 +10,6 @@ App works for any device on iOS 16+ and needs a working internet connection
 4. Tap on any recipe row to view more details about that recipe.
 5. Use the cuisine filter buttons to filter recipes by cuisine type (e.g., Italian, Japanese).
 
-### Summary:
-![RecipeApp](https://github.com/user-attachments/assets/f539c86f-e8a1-430c-9e1a-c9b5f746a4e9)
-
-![RecipeApp1](https://github.com/user-attachments/assets/54435634-2959-46d6-b1b1-b28235b3fcff)
-
 
 ### Focus Areas: What specific areas of the project did you prioritize? Why did you choose to focus on these areas?
 
